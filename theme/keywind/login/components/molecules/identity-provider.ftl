@@ -58,6 +58,9 @@
         <#case "twitter">
           <#assign colorClass="hover:bg-provider-twitter/10">
           <#break>
+        <#case "Kakao">
+          <#assign colorClass="hover:bg-provider-apple/10">
+          <#break>
         <#default>
           <#assign colorClass="hover:bg-secondary-100">
       </#switch>
