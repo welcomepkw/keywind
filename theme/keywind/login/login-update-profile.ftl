@@ -4,6 +4,17 @@
 <#import "components/atoms/form.ftl" as form>
 <#import "components/atoms/input.ftl" as input>
 
+<#if user.username == user.email>
+    <#if user.attributes.name?has_content>
+        <#assign username = user.attributes.name>
+    <#else>
+        <#assign username = ''>
+    </#if>
+<#else>
+    <#assign username = user.username>
+</#if>
+
+
 <@layout.registrationLayout
   displayMessage=!messagesPerField.existsError("email", "firstName", "lastName", "username")
   ;
@@ -32,7 +43,7 @@
           message=kcSanitize(messagesPerField.get("username"))
           name="username"
           type="text"
-          value=(user.username == user.email)?then('', (user.username))
+          value=(username)
           />
       </#if>
 <#--      <@input.kw-->
@@ -80,9 +91,8 @@
   </#if>
 </@layout.registrationLayout>
 <script type="text/javascript">
-  const username = "${user.username}";
+  const username = "${username}";
   const email = "${user.email}";
-
 
 
   if(username && email && username !== email){
