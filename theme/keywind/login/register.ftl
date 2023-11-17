@@ -14,25 +14,25 @@
     ${msg("registerTitle")}
   <#elseif section="form">
     <@form.kw action=url.registrationAction method="post">
-      <@input.kw
-        autocomplete="given-name"
-        autofocus=true
-        invalid=messagesPerField.existsError("firstName")
-        label=msg("firstName")
-        message=kcSanitize(messagesPerField.get("firstName"))
-        name="firstName"
-        type="text"
-        value=(register.formData.firstName)!''
-      />
-      <@input.kw
-        autocomplete="family-name"
-        invalid=messagesPerField.existsError("lastName")
-        label=msg("lastName")
-        message=kcSanitize(messagesPerField.get("lastName"))
-        name="lastName"
-        type="text"
-        value=(register.formData.lastName)!''
-      />
+<#--      <@input.kw-->
+<#--        autocomplete="given-name"-->
+<#--        autofocus=true-->
+<#--        invalid=messagesPerField.existsError("firstName")-->
+<#--        label=msg("firstName")-->
+<#--        message=kcSanitize(messagesPerField.get("firstName"))-->
+<#--        name="firstName"-->
+<#--        type="text"-->
+<#--        value=(register.formData.firstName)!''-->
+<#--      />-->
+<#--      <@input.kw-->
+<#--        autocomplete="family-name"-->
+<#--        invalid=messagesPerField.existsError("lastName")-->
+<#--        label=msg("lastName")-->
+<#--        message=kcSanitize(messagesPerField.get("lastName"))-->
+<#--        name="lastName"-->
+<#--        type="text"-->
+<#--        value=(register.formData.lastName)!''-->
+<#--      />-->
       <@input.kw
         autocomplete="email"
         invalid=messagesPerField.existsError("email")

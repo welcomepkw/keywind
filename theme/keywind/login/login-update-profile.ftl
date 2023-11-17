@@ -13,18 +13,7 @@
     ${msg("loginProfileTitle")}
   <#elseif section="form">
     <@form.kw action=url.loginAction method="post">
-      <#if user.editUsernameAllowed>
-        <@input.kw
-          autocomplete="username"
-          autofocus=true
-          invalid=messagesPerField.existsError("username")
-          label=msg("username")
-          message=kcSanitize(messagesPerField.get("username"))
-          name="username"
-          type="text"
-          value=(user.username)!''
-        />
-      </#if>
+
       <@input.kw
         autocomplete="email"
         invalid=messagesPerField.existsError("email")
@@ -34,24 +23,45 @@
         type="email"
         value=(user.email)!''
       />
-      <@input.kw
-        autocomplete="given-name"
-        invalid=messagesPerField.existsError("firstName")
-        label=msg("firstName")
-        message=kcSanitize(messagesPerField.get("firstName"))
-        name="firstName"
-        type="text"
-        value=(user.firstName)!''
-      />
-      <@input.kw
-        autocomplete="family-name"
-        invalid=messagesPerField.existsError("lastName")
-        label=msg("lastName")
-        message=kcSanitize(messagesPerField.get("lastName"))
-        name="lastName"
-        type="text"
-        value=(user.lastName)!''
-      />
+      <#if user.editUsernameAllowed>
+          <@input.kw
+          autocomplete="username"
+          autofocus=true
+          invalid=messagesPerField.existsError("username")
+          label=msg("username")
+          message=kcSanitize(messagesPerField.get("username"))
+          name="username"
+          type="text"
+          value=(user.username == user.email)?then('', (user.username))
+          />
+      </#if>
+<#--      <@input.kw-->
+<#--        autocomplete="given-name"-->
+<#--        invalid=messagesPerField.existsError("nickName")-->
+<#--        label=msg("nickName")-->
+<#--        message=kcSanitize(messagesPerField.get("nickName"))-->
+<#--        name="user.attributes.name"-->
+<#--        type="text"-->
+<#--        value=((user.attributes.name)!(user.firstName))!''-->
+<#--        />-->
+<#--      <@input.kw-->
+<#--        autocomplete="given-name"-->
+<#--        invalid=messagesPerField.existsError("firstName")-->
+<#--        label=msg("firstName")-->
+<#--        message=kcSanitize(messagesPerField.get("firstName"))-->
+<#--        name="firstName"-->
+<#--        type="text"-->
+<#--        value=(user.firstName)!''-->
+<#--      />-->
+<#--      <@input.kw-->
+<#--        autocomplete="family-name"-->
+<#--        invalid=messagesPerField.existsError("lastName")-->
+<#--        label=msg("lastName")-->
+<#--        message=kcSanitize(messagesPerField.get("lastName"))-->
+<#--        name="lastName"-->
+<#--        type="text"-->
+<#--        value=(user.lastName)!''-->
+<#--      />-->
       <@buttonGroup.kw>
         <#if isAppInitiatedAction??>
           <@button.kw color="primary" type="submit">
@@ -69,3 +79,16 @@
     </@form.kw>
   </#if>
 </@layout.registrationLayout>
+<script type="text/javascript">
+  const username = "${user.username}";
+  const email = "${user.email}";
+
+
+
+  if(username && email && username !== email){
+    <#if !messagesPerField.existsError("username") && !messagesPerField.existsError("email")>
+      document.querySelector("button[type='submit']").click();
+    </#if>
+  }
+
+</script>
